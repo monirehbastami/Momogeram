@@ -26,12 +26,13 @@ export enum ContextActionTypes{
     Delete_Message = "Delete_Message",
     Edit_Current_Message = "Edit_Current_Message",
     Clear_Room_Id = "Clear_Room_Id",
-    Login_Success = "Login_Success"
+    Login_Success = "Login_Success",
+    Log_out = "Log_out"
 }
 
 export type ContextAction<T, K> = {
     type: T;
-    payload: K;
+    payload?: K;
   };
   
 

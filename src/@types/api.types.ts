@@ -6,3 +6,7 @@ export type Contacts = {
     lastMessage: string;
     roomId:string
 }
+export type User = {
+    username: string;
+    token: string;
+}

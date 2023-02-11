@@ -12,6 +12,10 @@ export const UserReducer = (state:UserAppState,action:ContextAction<ContextActio
             state.token = action.payload.token;
             state.username = action.payload.username;
             return state;
+        case ContextActionTypes.Log_out:
+            state.token='';
+            state.username = '';
+            return state;
         default:
             return state;
     }

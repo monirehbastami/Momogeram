@@ -1,14 +1,20 @@
-import React,{useState} from 'react'
+import React,{useContext, useRef, useState} from 'react'
 import {GoThreeBars} from 'react-icons/go'
 import defUser from "../../../../assets/img/defUser.jpg"
 import { Image } from '../../../base/image'
 import {ThemMode} from './mode'
 import {IoIosCloseCircleOutline} from 'react-icons/io'
+import { AppContext } from '../../../../context/store'
+import { ContextActionTypes } from '../../../../@types/context/context.types'
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom'
 interface NavbarProps extends React.PropsWithChildren{}
 
 export const Navbar:React.FunctionComponent<NavbarProps> =(props):JSX.Element=>{
     const [isClickedBar,setIsClickedBar] = useState(false);
     const [isClickedClose,setisClickedClose] = useState(false);
+    const {state:{user},dispatch} = useContext(AppContext);
+    const navigation = useNavigate();
+    const ref=useRef<any>();
     console.log(isClickedBar)
     const clickHandler = (e:any,btnname?:string) => {
         if(btnname === 'bar'){
@@ -17,7 +23,15 @@ export const Navbar:React.FunctionComponent<NavbarProps> =(props):JSX.Element=>{
             setisClickedClose(!isClickedClose);
         }
     };
+    const logoutHandler = ()=>{
+        dispatch({
+            type:ContextActionTypes.Log_out,
+        });
+        navigation("login");
+    }
+    const location = useLocation();
     return(<>
+    <div ref={ref} className={`${location.pathname === '/login' ? 'hidden' : ''}`}>
         <GoThreeBars size={26} onClick={(e) => clickHandler(e,'bar')}/>
         <div className={`${
                  ((isClickedBar && !isClickedClose) || ((!isClickedBar && isClickedClose))) ? "absolute top-0 left-0 w-72 h-full backdrop-blur-sm p-2 flex flex-col bg-dark-btnprimary bg-opacity-60 text-dark-heading text-xl z-10 xl:text-2xl" : "hidden w-0"
@@ -31,8 +45,10 @@ export const Navbar:React.FunctionComponent<NavbarProps> =(props):JSX.Element=>{
                     <Image src={defUser} alt={"user picture"}  />
                     <h1 className='inline-block'>Monireh Bastami</h1>
                 </div>
-                    <ThemMode />
+                <ThemMode />
             </div>
+            <div className='pt-10 pl-5 cursor-pointer hover:underline' onClick={logoutHandler}><h2>Logout</h2></div>
+        </div>
         </div>
     </>)
 }
