@@ -25,7 +25,8 @@ export enum ContextActionTypes{
     Send_New_Message = "Send_New_Message",
     Delete_Message = "Delete_Message",
     Edit_Current_Message = "Edit_Current_Message",
-    Clear_Room_Id = "Clear_Room_Id"
+    Clear_Room_Id = "Clear_Room_Id",
+    Login_Success = "Login_Success"
 }
 
 export type ContextAction<T, K> = {
@@ -41,8 +42,14 @@ export type CreateContext = {
 export type ContextAppState = {
   contacts: ContactListState;
   messages: MessageState;
+  user:UserAppState;
 };
 export type ContactListState = {
   contactsList: ContactState[];
   searchList: ContactState[];
+};
+
+export type UserAppState = {
+  username: string;
+  token: string;
 };

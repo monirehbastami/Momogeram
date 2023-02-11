@@ -34,7 +34,7 @@ export const ChatList:React.FunctionComponent<ChatListProps> =():JSX.Element=>{
     <>
     {state.contacts.searchList.length === 0 ? (
         state.contacts.contactsList.length === 0 ? (
-          <div>فعلا پیامی وجود ندارد ...</div>
+          <div>There is not any contacts...</div>
         ) : (
           state.contacts.contactsList.map((item) => (
             <ChatItems

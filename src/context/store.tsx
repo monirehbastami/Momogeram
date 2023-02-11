@@ -2,6 +2,7 @@ import { createContext, useReducer } from "react";
 import { ContextAction, ContextActionTypes, ContextAppState } from "../@types/context/context.types";
 import { ContactReducer } from "./contact/contact.reducer";
 import { MessageReducer } from "./messages/message.reducer";
+import UserReducer from "./user/user.reducer";
 
 const InitialState: ContextAppState= {
   contacts: {
@@ -11,6 +12,10 @@ const InitialState: ContextAppState= {
   messages:{
     roomId: "",
     MessageList: [],
+  },
+  user:{
+    username: "",
+    token: ""
   }
 }
 const AppContext = createContext<{
@@ -21,12 +26,10 @@ const AppContext = createContext<{
   dispatch: () => null,
 });
 
-const CombineReducer = (
-  { contacts,messages}: ContextAppState,
-  action: any
-) => ({
+const CombineReducer = ({ contacts,messages,user}: ContextAppState,action: any) => ({
   contacts: ContactReducer(contacts, action),
-  messages:MessageReducer(messages,action)
+  messages:MessageReducer(messages,action),
+  user:UserReducer(user,action),
 });
 interface AppContextProviderProps extends React.PropsWithChildren{
     
